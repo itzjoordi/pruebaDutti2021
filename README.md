@@ -35,3 +35,7 @@ Run `npm run start` for a dev server.
 Navigate to `http://localhost:4200/`.
 
 ## Notas del desarrollador
+
+Levantar el siguiente json-server <https://www.npmjs.com/package/json-server> lanzando
+`json-server --watch db.json`
+Que nos levantará en el 'http://localhost:3000/' nuestro local server.
