@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const userName = this.loginForm.value.username;
+    const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 
-    this.authService.login(userName, password).subscribe({
+    this.authService.login(username, password).subscribe({
       next: () => {
         this.router.navigate(['/principal/ships']);
       },

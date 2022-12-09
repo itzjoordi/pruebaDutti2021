@@ -19,12 +19,12 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   authVerificator(): Observable<boolean> {
-    if (!localStorage.getItem('id')) {
+    if (!localStorage.getItem('currentUser')) {
       return of(false);
     }
 
     return this.http
-      .get<Auth>(`${this.baseURL}/users/${localStorage.getItem('id')}`)
+      .get<Auth>(`${this.baseURL}/users/${localStorage.getItem('currentUser')}`)
       .pipe(
         map((auth) => {
           this.auth = auth;
@@ -33,29 +33,28 @@ export class AuthService {
       );
   }
 
-  login(userName: string, password: string): Observable<Auth> {
-    return this.http.get<Auth[]>(`${this.baseURL}/users/`).pipe(
-      map((userList) => {
-        const filterUserList = userList.filter(
-          (user: Auth) => user.user === userName && user.password === password
-        );
-        if (filterUserList.length > 0) {
-          this.auth = filterUserList[0];
-          localStorage.setItem('id', this.auth.id);
-          return this.auth;
-        }
-        throw new Error('ERR_401');
+  login(username: string, password: string): Observable<Auth> {
+    return this.http
+      .post<Auth>(`${this.baseURL}/users/authenticate`, {
+        username,
+        password,
       })
-    );
+      .pipe(
+        map((user) => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', user.id.toString());
+          this.auth = user;
+          return user;
+        })
+      );
   }
 
   register(user: Auth): Observable<Auth> {
-    //El backend deberia revisar si el usuario ya existe y en ese caso devolver error.
-    return this.http.post<Auth>(`${this.baseURL}/users/`, user);
+    return this.http.post<Auth>(`${this.baseURL}/users/register`, user);
   }
 
   logout() {
     this.auth = undefined;
-    localStorage.removeItem('id');
+    localStorage.removeItem('currentUser');
   }
 }
