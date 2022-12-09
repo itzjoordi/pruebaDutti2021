@@ -54,7 +54,6 @@ export class AuthService {
   }
 
   logout() {
-    this.auth = undefined;
-    localStorage.removeItem('currentUser');
+    return this.http.post(`${this.baseURL}/users/logout`, {});
   }
 }

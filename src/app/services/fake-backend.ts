@@ -36,6 +36,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return authenticate();
         case url.endsWith('/users/register') && method === 'POST':
           return register();
+        case url.endsWith('/users/logout') && method === 'POST':
+          return logout();
         case url.match(/\/users\/\d+$/) && method === 'GET':
           return getUserDetail();
         default:
@@ -85,6 +87,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const localUsers: Auth[] =
         JSON.parse(localStorage.getItem('users')) || [];
       return ok(localUsers.find((user) => user.id === id));
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      return ok();
     }
 
     // helper functions
