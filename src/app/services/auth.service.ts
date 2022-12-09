@@ -49,6 +49,11 @@ export class AuthService {
     );
   }
 
+  register(user: Auth): Observable<Auth> {
+    //El backend deberia revisar si el usuario ya existe y en ese caso devolver error.
+    return this.http.post<Auth>(`${this.baseURL}/users/`, user);
+  }
+
   logout() {
     this.auth = undefined;
     localStorage.removeItem('id');
