@@ -73,7 +73,7 @@ describe('AuthService', () => {
   });
 
   it('AuthVerificator with local storage', () => {
-    spyOn(sessionStorage, 'getItem').and.callFake((key: string) => {
+    spyOn(localStorage, 'getItem').and.callFake((key: string) => {
       const storage = { currentUser: '1' };
       return storage[key as keyof typeof storage]
         ? storage[key as keyof typeof storage]
