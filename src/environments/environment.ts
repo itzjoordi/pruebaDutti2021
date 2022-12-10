@@ -4,6 +4,8 @@
 
 export const environment = {
   authAPI: 'http://localhost:3000',
+  swapiAPI: 'https://swapi.dev/api/starships/',
+  imagesAPI: 'https://starwars-visualguide.com/assets/img/starships/',
   production: false,
 };
 
