@@ -50,7 +50,7 @@ describe('LoginComponent', () => {
   });
 
   it('If user already loged navigate to principal page', () => {
-    spyOn(authService, 'authVerificator').and.returnValue(of(true));
+    spyOn(authService, 'authVerificator').and.returnValue(true);
 
     component.ngOnInit();
     fixture.detectChanges();

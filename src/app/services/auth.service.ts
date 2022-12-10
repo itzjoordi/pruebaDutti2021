@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Auth } from '../interfaces/auth.interface';
@@ -18,19 +18,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  authVerificator(): Observable<boolean> {
+  authVerificator(): boolean {
     if (!localStorage.getItem('currentUser')) {
-      return of(false);
+      return false;
     }
-
-    return this.http
-      .get<Auth>(`${this.baseURL}/users/${localStorage.getItem('currentUser')}`)
-      .pipe(
-        map((auth) => {
-          this.auth = auth;
-          return true;
-        })
-      );
+    return true;
   }
 
   login(username: string, password: string): Observable<Auth> {
@@ -41,8 +33,6 @@ export class AuthService {
       })
       .pipe(
         map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', user.id.toString());
           this.auth = user;
           return user;
         })

@@ -80,20 +80,12 @@ describe('AuthService', () => {
         : null;
     });
 
-    service.authVerificator().subscribe((response) => {
-      expect(response).toEqual(true);
-    });
-
-    const request = httpMock.expectOne(`${endpoint}/users/1`);
-    expect(request.request.method).toBe('GET');
-    request.flush(true);
+    expect(service.authVerificator()).toEqual(true);
   });
 
   it('AuthVerificator without local storage', () => {
     localStorage.removeItem('currentUser');
 
-    service.authVerificator().subscribe((response) => {
-      expect(response).toEqual(false);
-    });
+    expect(service.authVerificator()).toEqual(false);
   });
 });

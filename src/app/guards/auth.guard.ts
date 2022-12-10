@@ -1,15 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanLoad,
-  Route,
-  Router,
-  RouterStateSnapshot,
-  UrlSegment,
-} from '@angular/router';
+import { CanActivate, CanLoad, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -18,25 +9,19 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.authVerificator().pipe(
-      tap((isAuthenticate) => {
-        if (!isAuthenticate) this.router.navigate(['./']);
-      })
-    );
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    return this.checkPermissions();
   }
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.authVerificator().pipe(
-      tap((isAuthenticate) => {
-        if (!isAuthenticate) this.router.navigate(['./']);
-      })
-    );
+  canLoad(): Observable<boolean> | Promise<boolean> | boolean {
+    return this.checkPermissions();
+  }
+
+  checkPermissions(): boolean {
+    const isLogged = this.authService.authVerificator();
+    if (!isLogged) {
+      this.router.navigate(['./']);
+    }
+    return isLogged;
   }
 }

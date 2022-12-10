@@ -23,11 +23,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.authVerificator().subscribe((response: boolean) => {
-      if (response) {
-        this.router.navigate(['/principal/ships']);
-      }
-    });
+    if (this.authService.authVerificator()) {
+      this.router.navigate(['/principal/ships']);
+    }
 
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],

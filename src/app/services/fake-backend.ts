@@ -56,6 +56,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (!user) {
         return error('Usuario o contraseña incorrecto');
       }
+      localStorage.setItem('currentUser', user.id.toString());
       return ok({
         id: user.id,
         username: user.username,
