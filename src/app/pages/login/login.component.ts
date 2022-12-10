@@ -36,10 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 

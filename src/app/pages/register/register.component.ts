@@ -31,14 +31,12 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    if (this.registerForm.invalid) {
-      return;
-    }
     var userLogin = this.registerForm.value;
 
     this.authService.register(userLogin).subscribe({
       next: () => {
-        this.router.navigate(['/principal/ships']);
+        //TODO: Navigate to Confirmation Register Page
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error('Error', error);

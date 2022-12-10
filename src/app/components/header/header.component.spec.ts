@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderComponent } from './header.component';
 
-let routerSpy = { navigate: jasmine.createSpy('navigate') };
+const routerSpy = { navigate: jasmine.createSpy('navigate') };
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
