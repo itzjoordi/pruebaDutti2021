@@ -17,7 +17,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const { url, method, headers, body } = request;
+    const { url, method, body } = request;
 
     if (!url.includes('/users')) {
       return next.handle(request);
@@ -101,7 +101,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function error(message) {
-      return throwError({ error: { message } });
+      return throwError(() => new Error(message));
     }
 
     function idFromUrl() {

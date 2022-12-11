@@ -13,13 +13,13 @@ export class ShipsService {
   constructor(private http: HttpClient, private cache: CacheService) {}
 
   get(page: number): Observable<StarShipCollection> {
-    if (!this.cache.cache[`$page-${page}`]) {
+    if (!this.cache.cache[page]) {
       const endpoint = `${environment.swapiAPI}?page=${page}`;
-      this.cache.cache[`$page-${page}`] = this.http
+      this.cache.cache[page] = this.http
         .get<StarShipCollection>(endpoint)
         .pipe(this.cache.cachePipe());
     }
-    return this.cache.cache[`$page-${page}`];
+    return this.cache.cache[page];
   }
 
   setAdditionalData(starShip: StarShip): StarShip {

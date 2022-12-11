@@ -13,8 +13,6 @@ const MINUTS = 5;
 export class CacheService {
   cache: Observable<any>[] = [];
 
-  constructor() {}
-
   cachePipe() {
     return <T>(source: Observable<T>) => {
       return source.pipe(

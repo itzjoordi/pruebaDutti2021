@@ -13,7 +13,7 @@ export class AuthService {
   private auth: Auth | undefined;
 
   get getAuth(): Auth {
-    return { ...this.auth! };
+    return this.auth;
   }
 
   constructor(private http: HttpClient) {}
