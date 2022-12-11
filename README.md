@@ -36,6 +36,10 @@ Navigate to `http://localhost:4200/`.
 
 ## Notas del desarrollador
 
+### Try yourself
+
+La aplicación está desplegada aquí: <https://dutti.netlify.app/>
+
 ### Mejoras de rendimiento de la Aplicación
 
 1. Actualizar ultimas versiones del FrameWork, en mi caso las he subido a Angular 14.2.7
