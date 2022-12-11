@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  .view-container {
+    flex: 1;
+  }
+}
+
 .colorInvalid {
-    color: red;
+  color: red;
 }

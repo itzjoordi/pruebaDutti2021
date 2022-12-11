@@ -17,12 +17,14 @@ export class ShipsComponent implements OnInit, OnDestroy {
    */
   dataList: BehaviorSubject<StarShip[]> = new BehaviorSubject<StarShip[]>([]);
   dataList$: Observable<StarShip[]> = this.dataList.asObservable();
+  dataListAccum: StarShip[] = [];
 
   /**
    * Pagination starting values
    */
-  pageIndex = 0;
+  pageIndex = 1;
   totalItems = 0;
+  requestedSize = 10;
 
   /**
    * Observable to avoid calls to API when component has been destroyed
@@ -42,7 +44,7 @@ export class ShipsComponent implements OnInit, OnDestroy {
 
   getStarShips(page: number): void {
     this.shipsService
-      .get(page + 1)
+      .get(page)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: StarShipCollection) => {
         const starships = response.results
@@ -51,8 +53,9 @@ export class ShipsComponent implements OnInit, OnDestroy {
             })
           : [];
         if (response.results) {
+          this.dataListAccum = [...this.dataListAccum, ...starships];
           this.totalItems = response.count;
-          this.dataList.next(starships);
+          this.dataList.next(this.dataListAccum);
         }
       });
   }
@@ -61,10 +64,37 @@ export class ShipsComponent implements OnInit, OnDestroy {
     this.getStarShips(event.pageIndex);
   }
 
+  onScrollShips(): void {
+    const element: HTMLElement = document.getElementById('starShipList');
+    if (element) {
+      const scrollHeight = element?.scrollHeight;
+      const scrollTop = element?.scrollTop;
+      const clientHeight = element?.clientHeight;
+      if (this.loadMoreData(scrollHeight, scrollTop, clientHeight)) {
+        console.log(this.pageIndex);
+        this.getStarShips(++this.pageIndex);
+        console.log(this.pageIndex);
+      }
+    }
+  }
+
   trackByShips(index: number, ship: StarShip): number {
     if (ship.id) {
       return ship.id;
     }
     return 0;
+  }
+
+  private loadMoreData(
+    scrollHeight: number,
+    scrollTop: number,
+    clientHeight: number
+  ): boolean {
+    const retrievedResults = this.pageIndex * this.requestedSize;
+    const hasMoreData: boolean = retrievedResults <= this.totalItems;
+    if (scrollHeight - scrollTop <= clientHeight && hasMoreData) {
+      return true;
+    }
+    return false;
   }
 }
