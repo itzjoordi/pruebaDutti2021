@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { ShipsService } from 'src/app/pages/principal/services/ships.service';
@@ -60,16 +59,12 @@ export class ShipsComponent implements OnInit, OnDestroy {
       });
   }
 
-  getPaginatorData(event: MatPaginator) {
-    this.getStarShips(event.pageIndex);
-  }
-
   onScrollShips(): void {
     const element: HTMLElement = document.getElementById('starShipList');
     if (element) {
-      const scrollHeight = element?.scrollHeight;
-      const scrollTop = element?.scrollTop;
-      const clientHeight = element?.clientHeight;
+      const scrollHeight = element.scrollHeight;
+      const scrollTop = element.scrollTop;
+      const clientHeight = element.clientHeight;
       if (this.loadMoreData(scrollHeight, scrollTop, clientHeight)) {
         console.log(this.pageIndex);
         this.getStarShips(++this.pageIndex);
