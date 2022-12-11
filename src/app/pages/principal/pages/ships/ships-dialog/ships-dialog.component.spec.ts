@@ -1,10 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StarShip } from '../../../interfaces/starship.interface';
-import { ShipsDetailsComponent } from './ships-details.component';
+import { ShipsDialogComponent } from './ships-dialog.component';
 
 const starShip: StarShip = {
   MGLT: '60',
@@ -31,22 +29,22 @@ const starShip: StarShip = {
   url: 'https://swapi.dev/api/starships/2/',
 };
 
-describe('ShipsDetailsComponent', () => {
-  let component: ShipsDetailsComponent;
-  let fixture: ComponentFixture<ShipsDetailsComponent>;
+describe('ShipsDialogComponent', () => {
+  let component: ShipsDialogComponent;
+  let fixture: ComponentFixture<ShipsDialogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule, MatCardModule, MatButtonModule],
-      declarations: [ShipsDetailsComponent],
+      imports: [MatDialogModule],
+      declarations: [ShipsDialogComponent],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: { starShip } }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShipsDetailsComponent);
+    fixture = TestBed.createComponent(ShipsDialogComponent);
     component = fixture.componentInstance;
-    component.starShip = starShip;
     fixture.detectChanges();
   });
 

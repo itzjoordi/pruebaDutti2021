@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ data.name }}</h2>
+<mat-dialog-content class="mat-typography">
+  <p class="d-flex justify-content-between">
+    <strong>Modelo</strong>
+    <span class="w-50">{{ data.model }}</span>
+  </p>
+  <p class="d-flex justify-content-between">
+    <strong>Precio (En Creditos)</strong>
+    <span class="w-50">{{ data.cost_in_credits | currency : "XXX" }}</span>
+  </p>
+  <p class="d-flex justify-content-between">
+    <strong>Fabricante</strong>
+    <span class="w-50">{{ data.manufacturer }}</span>
+  </p>
+  <p class="d-flex justify-content-between">
+    <strong>Fecha de alta</strong>
+    <span class="w-50">{{ data.created | date : "dd-MM-yyyy" }}</span>
+  </p>
+  <p class="d-flex justify-content-between">
+    <strong>Fecha última edición</strong>
+    <span class="w-50">{{ data.edited | date : "dd-MM-yyyy" }}</span>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

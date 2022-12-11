@@ -1,39 +1,28 @@
-import { Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShipsService } from 'src/app/pages/principal/services/ships.service';
-
 import { ShipsComponent } from './ships.component';
-
-import { BehaviorSubject } from 'rxjs';
 
 describe('ShipsComponent', () => {
   let component: ShipsComponent;
   let fixture: ComponentFixture<ShipsComponent>;
-  const serviceMock = {
-    getShips: function () {
-      return new BehaviorSubject([]);
-    },
-  };
+  let service: ShipsService;
 
-  @Component({
-    selector: 'ships-details',
-    template: '<p>Mock Ship Details</p>',
-  })
-  class MockShipDetails {
-    @Input() dataList: any;
-  }
-
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ShipsComponent, MockShipDetails],
-      providers: [{ provide: ShipsService, useValue: serviceMock }],
+      imports: [HttpClientTestingModule],
+      declarations: [ShipsComponent],
+      providers: [],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ShipsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    service = TestBed.inject(ShipsService);
   });
 
   it('should create', () => {

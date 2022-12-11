@@ -1,53 +1,28 @@
-<!-- <pagination-controls (pageChange)="pageChanged($event)" class="text-center"></pagination-controls> -->
-<div
-  class="ship"
-  *ngFor="let ships of dataList.results; let i = index"
-  (click)="openDetails(ships)"
->
-  <div class="panel-heading">
-    <h3 class="panel-title">{{ ships.name }}</h3>
-  </div>
-  <div class="panel-body text-center color">
-    <img
-      [src]="getStarshipId(ships.url)"
-      onError="this.src='assets/img/errorImg_x3.svg'"
-      class="imgSize"
-    />
-  </div>
-</div>
+<mat-card class="starShipCard">
+  <mat-card-header>
+    <mat-card-title>{{ starShip.name | titlecase }}</mat-card-title>
+    <mat-card-subtitle>{{ starShip.model | titlecase }}</mat-card-subtitle>
+  </mat-card-header>
 
-<!-- Modal Details-->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ titleDetails }}</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <span>Model : {{ modelDetails }}</span
-        ><br />
-        <span>starship_class: {{ starship_class }}</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+  <img
+    class="imgSize"
+    mat-card-image
+    [src]="starShip.imageUrl"
+    onError="this.src='assets/img/404.png'"
+  />
+
+  <mat-card-content>
+    <h3>{{ starShip.starship_class | titlecase }}</h3>
+    <p>
+      <strong>Fabricante:</strong> {{ starShip.manufacturer }}
+      <br />
+      <strong>Pasajeros:</strong> {{ starShip.passengers }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions class="cardAction">
+    <button (click)="openDialog()" mat-raised-button color="primary">
+      Ver más
+    </button>
+  </mat-card-actions>
+</mat-card>

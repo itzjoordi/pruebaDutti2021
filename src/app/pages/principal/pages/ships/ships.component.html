@@ -1,3 +1,23 @@
-<div class="container">
-  <ships-details [dataList]="dataList"></ships-details>
+<div class="d-flex flex-row w-100">
+  <div class="row w-100">
+    <div class="col-12">
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="10"
+        [hidePageSize]="true"
+        (page)="getPaginatorData($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="d-flex flex-row mt-3">
+  <div class="row">
+    <div
+      class="col-sm-6 col-md-4 col-lg-3 mb-4"
+      *ngFor="let starShip of dataList$ | async; trackBy: trackByShips"
+    >
+      <ships-details class="pointer" [starShip]="starShip"></ships-details>
+    </div>
+  </div>
 </div>

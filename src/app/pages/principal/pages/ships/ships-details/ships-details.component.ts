@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-declare var $: any;
+import { MatDialog } from '@angular/material/dialog';
+import { StarShip } from '../../../interfaces/starship.interface';
+import { ShipsDialogComponent } from '../ships-dialog/ships-dialog.component';
 
 @Component({
   selector: 'ships-details',
@@ -7,41 +9,16 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss'],
 })
 export class ShipsDetailsComponent implements OnInit {
-  @Input() dataList: any;
-  config: any;
-  shipId: string = '';
-  url: string = '';
-  // Modal
-  titleDetails: string = '';
-  modelDetails: string = '';
-  starship_class: string = '';
+  @Input() starShip: StarShip;
 
-  constructor() {
-    console.log('ships-detail');
-  }
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.dataList.length,
-    };
-  }
+  ngOnInit() {}
 
-  getStarshipId(url) {
-    this.shipId = url.slice(0, -1);
-    const urlImage = `${this.shipId}.jpg`;
-    return urlImage !== '';
-  }
-
-  pageChanged(event) {
-    this.config.currentPage = event;
-  }
-
-  openDetails(details) {
-    $('#exampleModal').modal('show');
-    this.titleDetails = details.name;
-    this.modelDetails = details.model;
-    this.starship_class = details.starship_class;
+  openDialog() {
+    this.dialog.open(ShipsDialogComponent, {
+      width: '40vw',
+      data: this.starShip,
+    });
   }
 }
