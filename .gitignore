@@ -22,6 +22,9 @@ speed-measure-plugin*.json
 .history/*
 .angular
 
+# Sonar
+.scannerwork
+
 # misc
 /.sass-cache
 /connect.lock
