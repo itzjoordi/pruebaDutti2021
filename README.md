@@ -35,3 +35,14 @@ Run `npm run start` for a dev server.
 Navigate to `http://localhost:4200/`.
 
 ## Notas del desarrollador
+
+### Mejoras de rendimiento de la Aplicación
+
+1. Actualizar ultimas versiones del FrameWork, en mi caso las he subido a Angular 14.2.7
+2. Uso de Lazy Loading Modules
+3. Uso de TrackBy en directivas ngFor
+4. Server Side Render
+5. Pure pipes
+6. Gzip build en Prod mediante por ejemplo:
+   1. Webpack <https://www.npmjs.com/package/@angular-builders/custom-webpack>
+   2. Esbuild <https://www.npmjs.com/package/esbuild> (VERY RECOMENDED)
