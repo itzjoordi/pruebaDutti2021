@@ -46,3 +46,4 @@ Navigate to `http://localhost:4200/`.
 6. Gzip build en Prod mediante por ejemplo:
    1. Webpack <https://www.npmjs.com/package/@angular-builders/custom-webpack>
    2. Esbuild <https://www.npmjs.com/package/esbuild> (VERY RECOMENDED)
+7. Optimice Largest Contentful Paint (LCP) con preconnect
