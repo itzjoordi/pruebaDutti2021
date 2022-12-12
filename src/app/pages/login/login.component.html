@@ -1,6 +1,8 @@
 <div class="col-md-5 col-md-offset-5 container mt-5">
   <h2 class="text-center">Iniciar sesión</h2>
-  <p class="text-center">Introduzca su correo y contraseña para acceder</p>
+  <p class="text-center">
+    Introduzca su Nombre de Usuario y Contraseña para acceder
+  </p>
   <form [formGroup]="loginForm" (ngSubmit)="login()" class="form">
     <div class="form-group mt-5" [ngClass]="{ 'has-error': loginForm.invalid }">
       <input
